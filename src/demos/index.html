@@ -15,31 +15,33 @@
 
     <script type="text/babel">
 
-        var Comment = React.createClass({
-            edit: function(){
-                alert('Editing comment');
+        var CheckBox = React.createClass({
+            
+            getInitialState: function(){
+                return {checked: true}
             },
-            remove: function(){
-                alert('Removing comment');
+
+            handleChecked: function(){
+                this.setState({checked: !this.state.checked})
             },
+
             render: function(){
+                var msg;
+                if(this.state.checked){
+                    msg = 'checked'
+                } else {
+                    msg = 'unchecked'
+                }
                 return (
-                <div className="commentContainer">
-                    <div className="commentText">{this.props.children}</div>
-                    <button onClick={this.edit} className="button-primary">Edit</button>
-                    <button onClick={this.remove} className="button-danger">Remove</button>
+                <div>
+                    <input type="checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked}/>
+                    <h3>Checkbox is {msg}</h3>
                 </div>
                 );
             }
         });
 
-        ReactDOM.render(
-        <div className="board">
-            <Comment>Test 1</Comment>
-            <Comment>Test 2</Comment>
-            <Comment>Test 3</Comment>
-        </div>
-        , document.getElementById('container'));
+        ReactDOM.render(<CheckBox/>, document.getElementById('container'));
 
     </script>
 
