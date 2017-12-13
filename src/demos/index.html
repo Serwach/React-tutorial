@@ -4,34 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React - Template</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <script src="../js/react.min.js"></script>
     <script src="../js/react-dom.min.js"></script>
     <script src="../js/browser.min.js"></script>
 </head>
 <body>
 
-    <div id="app"></div>
+    <div id="container"></div>
 
     <script type="text/babel">
 
-        var Movie = React.createClass({
+        var Comment = React.createClass({
+            edit: function(){
+                alert('Editing comment');
+            },
+            remove: function(){
+                alert('Removing comment');
+            },
             render: function(){
                 return (
-                <div>
-                    <h1>{this.props.title}</h1>
-                    <h2>{this.props.genre}</h2>
+                <div className="commentContainer">
+                    <div className="commentText">{this.props.children}</div>
+                    <button onClick={this.edit} className="button-primary">Edit</button>
+                    <button onClick={this.remove} className="button-danger">Remove</button>
                 </div>
                 );
             }
         });
 
         ReactDOM.render(
-        <div>
-            <Movie title="Test 1" genre="test1"/>
-            <Movie title="Test 2" genre="test2"/>
-            <Movie title="Test 3" genre="test3"/>
+        <div className="board">
+            <Comment>Test 1</Comment>
+            <Comment>Test 2</Comment>
+            <Comment>Test 3</Comment>
         </div>
-        , document.getElementById('app'));
+        , document.getElementById('container'));
 
     </script>
 
