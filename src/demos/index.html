@@ -26,6 +26,8 @@
                 console.log('Remove comment');
             },
             save: function(){
+                var val = this.refs.newText.value;
+                console.log('New comment ' + val);
                 this.setState({editing: false});
             },
 
@@ -42,7 +44,7 @@
             renderForm: function(){
                 return (
                 <div className="commentContainer">
-                    <textarea defaultValue={this.props.children}></textarea>
+                    <textarea ref="newText" defaultValue={this.props.children}></textarea>
                     <div className="commentText">{this.props.children}</div>
                     <button onClick={this.save} className="button-success">Save</button>
                 </div>
@@ -54,17 +56,35 @@
                     return this.renderForm();
                 } else {
                     return this.renderNormal();
+                }}});
+
+        var Board = React.createClass({
+
+            getInitialState: function(){
+                return {
+                    comments: [
+                    'blablabla',
+                    'blablablablablabla',
+                    'blablablablablablablablabla'
+                    ]
                 }
+            },
+
+            render: function(){
+                return (
+                    <div className="board">
+                        {
+                            this.state.comments.map(function (text, i){
+                                return (<Comment key={i}>{text}</Comment>);
+                            })
+                        }
+                    </div>
+                );
             }
+
         });
 
-        ReactDOM.render(
-        <div className="board">
-            <Comment>Test 1</Comment>
-            <Comment>Test 2</Comment>
-            <Comment>Test 3</Comment>
-        </div>
-        , document.getElementById('container'));
+        ReactDOM.render(<Board />, document.getElementById('container'));
 
     </script>
 
